@@ -30,6 +30,9 @@
             50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(244, 67, 54, 0); }
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
         }
+        #question-text p {
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
@@ -37,7 +40,7 @@
         <!-- Tela Inicial -->
         <div id="start-screen">
             <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Desafio das Conjunções</h1>
-            <p class="text-gray-600 mb-6">Complete as frases com a conjunção correta. Vamos começar?</p>
+            <p class="text-gray-600 mb-6">Leia os textos e responda às perguntas. Vamos começar?</p>
             <button onclick="startGame()" class="w-full bg-teal-500 text-white font-bold py-3 px-6 rounded-lg text-xl hover:bg-teal-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300">
                 Começar!
             </button>
@@ -49,8 +52,8 @@
                 <div id="question-counter" class="text-lg font-semibold text-gray-700">Questão 1/20</div>
                 <div id="score-counter" class="text-lg font-semibold text-gray-700">Pontos: 0</div>
             </div>
-            <div class="bg-gray-100 rounded-lg p-6 mb-6 min-h-[100px] flex items-center justify-center">
-                <h2 id="question-text" class="text-2xl md:text-3xl font-bold text-gray-800"></h2>
+            <div class="bg-gray-100 rounded-lg p-6 mb-6 min-h-[150px] flex items-center justify-center text-left">
+                <div id="question-text" class="text-xl md:text-2xl font-semibold text-gray-800"></div>
             </div>
             <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Opções serão inseridas aqui pelo JavaScript -->
@@ -71,26 +74,26 @@
     <script>
         // --- CONFIGURAÇÃO DO JOGO ---
         const questions = [
-            { question: "Gosto de sorvete, ___ também gosto de bolo.", options: ["e", "mas", "ou", "pois"], answer: "e" },
-            { question: "Estudei muito, ___ não passei na prova.", options: ["mas", "porque", "portanto", "nem"], answer: "mas" },
-            { question: "Você quer suco ___ refrigerante?", options: ["ou", "e", "nem", "se"], answer: "ou" },
-            { question: "Não fui à festa ___ estava doente.", options: ["porque", "mas", "e", "logo"], answer: "porque" },
-            { question: "Ele é inteligente, ___, deve estudar mais.", options: ["porém", "pois", "ou", "que"], answer: "porém" },
-            { question: "Penso, ___ existo.", options: ["logo", "mas", "ou", "e"], answer: "logo" },
-            { question: "Não comeu o almoço ___ o jantar.", options: ["nem", "mas", "ou", "e"], answer: "nem" },
-            { question: "Choveu muito, ___ a rua ficou alagada.", options: ["portanto", "mas", "porque", "ou"], answer: "portanto" },
-            { question: "Espere um pouco, ___ eu já volto.", options: ["que", "mas", "ou", "nem"], answer: "que" },
-            { question: "Ele não só canta, ___ também dança.", options: ["mas", "pois", "ou", "nem"], answer: "mas" },
-            { question: "Ela gosta de ler, ___ o irmão prefere esportes.", options: ["porém", "e", "ou", "porque"], answer: "porém" },
-            { question: "A porta está fechada, ___ você não pode entrar.", options: ["logo", "mas", "ou", "nem"], answer: "logo" },
-            { question: "Você prefere praia ___ campo?", options: ["ou", "e", "mas", "pois"], answer: "ou" },
-            { question: "Ele correu muito ___ ficou cansado.", options: ["e", "mas", "porque", "ou"], answer: "e" },
-            { question: "A lição era difícil, ___ consegui terminar.", options: ["mas", "porque", "ou", "nem"], answer: "mas" },
-            { question: "Leve o guarda-chuva, ___ pode chover.", options: ["pois", "mas", "ou", "e"], answer: "pois" },
-            { question: "Não gosto de jiló ___ de quiabo.", options: ["nem", "e", "ou", "mas"], answer: "nem" },
-            { question: "Ele acordou cedo, ___ chegou atrasado.", options: ["contudo", "portanto", "porque", "e"], answer: "contudo" },
-            { question: "Fale baixo, ___ o bebê está dormindo.", options: ["porque", "se", "mas", "ou"], answer: "porque" },
-            { question: "Ela é alta, ___ seu irmão é baixo.", options: ["mas", "e", "ou", "pois"], answer: "mas" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'O sol brilhava <b>e</b> o céu estava azul. Fomos ao parque, <b>mas</b> começou a chover.' </p><p>Quais conjunções aparecem no texto?</p>", options: ["e, mas", "ou, pois", "e, porque", "mas, logo"], answer: "e, mas" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Ana estudou muito para a prova, <b>portanto</b>, tirou uma boa nota.' </p><p>A conjunção 'portanto' indica uma ideia de:</p>", options: ["Conclusão", "Oposição", "Adição", "Alternativa"], answer: "Conclusão" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Você quer ir ao cinema <b>ou</b> prefere ficar em casa?' </p><p>A conjunção 'ou' é usada para expressar:</p>", options: ["Alternativa", "Explicação", "Adição", "Contraste"], answer: "Alternativa" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Não saí de casa <b>porque</b> estava me sentindo mal.' </p><p>Qual o papel da conjunção 'porque' na frase?</p>", options: ["Dar uma explicação", "Adicionar uma ideia", "Mostrar uma oposição", "Indicar uma escolha"], answer: "Dar uma explicação" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Ele gosta de futebol, <b>porém</b> não sabe jogar bem.' </p><p>A palavra 'porém' pode ser substituída por qual conjunção, sem mudar o sentido?</p>", options: ["mas", "e", "pois", "logo"], answer: "mas" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'O menino não comeu o bolo <b>nem</b> tomou o suco.' </p><p>A conjunção 'nem' tem o sentido de:</p>", options: ["Adição negativa", "Escolha", "Conclusão", "Oposição"], answer: "Adição negativa" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Eu acordo cedo <b>e</b> faço minha lição antes de ir para a escola.' </p><p>A conjunção 'e' na frase serve para:</p>", options: ["Ligar duas ações", "Mostrar uma causa", "Dar uma alternativa", "Opor duas ideias"], answer: "Ligar duas ações" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'O filme era longo, <b>contudo</b>, eu gostei muito.' </p><p>'Contudo' é uma conjunção que indica:</p>", options: ["Oposição", "Adição", "Explicação", "Conclusão"], answer: "Oposição" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Estude, <b>pois</b> a prova será amanhã.' </p><p>A conjunção 'pois' poderia ser trocada por:</p>", options: ["porque", "mas", "ou", "portanto"], answer: "porque" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Choveu o dia todo, <b>logo</b>, as ruas ficaram alagadas.' </p><p>A conjunção 'logo' expressa uma ideia de:</p>", options: ["Conclusão", "Adição", "Oposição", "Tempo"], answer: "Conclusão" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Gosto de ler, <b>mas</b> hoje estou com dor de cabeça.' </p><p>A conjunção 'mas' indica uma:</p>", options: ["Contradição/Oposição", "Soma", "Causa", "Escolha"], answer: "Contradição/Oposição" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: '<b>Ou</b> você arruma o quarto, <b>ou</b> não vai passear.' </p><p>As conjunções 'Ou ... ou' indicam:</p>", options: ["Alternância", "Adição", "Oposição", "Explicação"], answer: "Alternância" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Ele não apenas leu o livro, <b>mas também</b> fez um resumo.' </p><p>A expressão 'não apenas... mas também' tem valor de:</p>", options: ["Adição", "Oposição", "Condição", "Tempo"], answer: "Adição" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: '<b>Se</b> você estudar, aprenderá a matéria.' </p><p>A conjunção 'Se' inicia uma ideia de:</p>", options: ["Condição", "Causa", "Tempo", "Finalidade"], answer: "Condição" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'O cachorro latiu <b>quando</b> o carteiro chegou.' </p><p>A palavra 'quando' é uma conjunção que indica:</p>", options: ["Tempo", "Lugar", "Modo", "Causa"], answer: "Tempo" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Ficamos em casa, <b>visto que</b> a tempestade era muito forte.' </p><p>A expressão 'visto que' tem o mesmo sentido de:</p>", options: ["porque", "embora", "portanto", "e"], answer: "porque" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: '<b>Embora</b> estivesse cansado, ele terminou todo o trabalho.' </p><p>A conjunção 'Embora' expressa uma ideia de:</p>", options: ["Concessão (oposição)", "Causa", "Finalidade", "Condição"], answer: "Concessão (oposição)" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Ele treinou todos os dias <b>para que</b> pudesse vencer a corrida.' </p><p>A expressão 'para que' indica:</p>", options: ["Finalidade", "Tempo", "Causa", "Consequência"], answer: "Finalidade" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'O dia estava quente, <b>então</b> fomos à praia.' </p><p>A conjunção 'então' pode ser substituída por:</p>", options: ["portanto", "mas", "porque", "ou"], answer: "portanto" },
+            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Pedro é um bom aluno, <b>e</b> Maria também se esforça.' </p><p>Qual conjunção liga as duas frases?</p>", options: ["e", "mas", "ou", "pois"], answer: "e" }
         ];
 
         // --- VARIÁVEIS DO ESTADO DO JOGO ---
@@ -133,7 +136,7 @@
         function displayQuestion() {
             if (currentQuestionIndex < shuffledQuestions.length) {
                 const question = shuffledQuestions[currentQuestionIndex];
-                questionText.innerHTML = `"${question.question}"`;
+                questionText.innerHTML = question.question;
                 optionsContainer.innerHTML = '';
                 feedbackMessage.innerHTML = '';
 
@@ -190,3 +193,4 @@
     </script>
 </body>
 </html>
+
