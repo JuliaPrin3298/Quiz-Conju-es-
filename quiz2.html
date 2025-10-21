@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete a Frase: Conjunções</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete a Frase: Conjunções</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2338b2ac' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'%3E%3C/path%3E%3Cpath d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'%3E%3C/path%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #38b2ac 0%, #3182ce 100%);
+        }
+        /* Animação de feedback */
+        .correct-answer {
+            animation: pulse-green 0.8s;
+        }
+        .incorrect-answer {
+            animation: pulse-red 0.8s;
+        }
+        @keyframes pulse-green {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        }
+        @keyframes pulse-red {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(244, 67, 54, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
+        }
+        #question-text p {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md w-full">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-2xl font-bold text-teal-600">Quiz Educativo</h1>
+                </div>
+                <div class="hidden md:block">
+                    <ul class="ml-10 flex items-baseline space-x-4">
+                        <li><a href="index.html" class="text-gray-600 hover:bg-teal-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a></li>
+                        <li><a href="qrcode.html" class="text-gray-600 hover:bg-teal-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">QrCode</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center p-4">
+        <div id="game-container" class="w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-6 md:p-8 text-center transition-all duration-500">
+            <!-- Tela Inicial -->
+            <div id="start-screen">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Complete a Frase: Conjunções</h1>
+                <p class="text-gray-600 mb-6">Escolha a conjunção correta para completar cada frase. Vamos começar?</p>
+                <button onclick="startGame()" class="w-full bg-teal-500 text-white font-bold py-3 px-6 rounded-lg text-xl hover:bg-teal-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300">
+                    Começar!
+                </button>
+            </div>
+    
+            <!-- Tela do Jogo -->
+            <div id="game-screen" class="hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <div id="question-counter" class="text-lg font-semibold text-gray-700">Questão 1/20</div>
+                    <div id="score-counter" class="text-lg font-semibold text-gray-700">Pontos: 0</div>
+                </div>
+                <div class="bg-gray-100 rounded-lg p-6 mb-6 min-h-[150px] flex items-center justify-center text-left">
+                    <div id="question-text" class="text-xl md:text-2xl font-semibold text-gray-800"></div>
+                </div>
+                <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Opções serão inseridas aqui pelo JavaScript -->
+                </div>
+                <div id="feedback-message" class="mt-6 text-2xl font-bold h-8"></div>
+            </div>
+    
+            <!-- Tela Final -->
+            <div id="end-screen" class="hidden">
+                <h1 class="text-4xl font-bold text-green-500 mb-4">Parabéns!</h1>
+                <p id="final-score" class="text-2xl text-gray-700 mb-6"></p>
+                <button onclick="startGame()" class="w-full bg-teal-500 text-white font-bold py-3 px-6 rounded-lg text-xl hover:bg-teal-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300">
+                    Jogar Novamente
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- CONFIGURAÇÃO DO JOGO ---
+        const questions = [
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Eu gosto de maçã ___ banana.'</p>", options: ["e", "mas", "ou", "pois"], answer: "e" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Ele queria sair, ___ estava chovendo muito.'</p>", options: ["mas", "e", "logo", "portanto"], answer: "mas" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Você prefere suco de laranja ___ de uva?'</p>", options: ["ou", "e", "mas", "porque"], answer: "ou" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Ela não foi à escola ___ estava doente.'</p>", options: ["porque", "portanto", "mas", "e"], answer: "porque" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Estudei bastante para a prova, ___ tirei uma nota boa.'</p>", options: ["portanto", "porém", "ou", "se"], answer: "portanto" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Ele não gosta de jiló ___ de quiabo.'</p>", options: ["nem", "e", "mas", "ou"], answer: "nem" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Choveu muito, ___ a rua ficou alagada.'</p>", options: ["logo", "mas", "ou", "porque"], answer: "logo" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'___ você estude, conseguirá passar de ano.'</p>", options: ["Se", "Mas", "Pois", "E"], answer: "Se" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Esperei por você, ___ você não apareceu.'</p>", options: ["porém", "e", "pois", "ou"], answer: "porém" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Fale baixo, ___ o bebê está dormindo.'</p>", options: ["pois", "mas", "ou", "logo"], answer: "pois" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'___ estivesse cansado, ele continuou trabalhando.'</p>", options: ["Embora", "Porque", "Portanto", "Quando"], answer: "Embora" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'O sinal abriu, ___ os carros começaram a andar.'</p>", options: ["então", "mas", "ou", "porque"], answer: "então" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Não só fez o dever, ___ também arrumou o quarto.'</p>", options: ["mas também", "ou", "porém", "e"], answer: "mas também" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Eu vou te ajudar, ___ você me peça.'</p>", options: ["desde que", "e", "mas", "pois"], answer: "desde que" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'O tempo passou, ___ a saudade ficou.'</p>", options: ["contudo", "e", "ou", "logo"], answer: "contudo" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Eu leio o livro ___ o filme é lançado.'</p>", options: ["antes que", "e", "mas", "porque"], answer: "antes que" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Arrume a mesa ___ a janta fica pronta.'</p>", options: ["enquanto", "mas", "portanto", "se"], answer: "enquanto" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Ele economizou dinheiro ___ pudesse viajar.'</p>", options: ["para que", "e", "mas", "ou"], answer: "para que" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'___ chova amanhã, não iremos ao parque.'</p>", options: ["Caso", "E", "Mas", "Pois"], answer: "Caso" },
+            { question: "<p class='text-base text-gray-600'>Complete a frase:</p><p>'Ele é muito inteligente, ___ preguiçoso.'</p>", options: ["todavia", "e", "ou", "logo"], answer: "todavia" }
+        ];
+
+        // --- VARIÁVEIS DO ESTADO DO JOGO ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let shuffledQuestions = [];
+
+        // --- ELEMENTOS DA UI ---
+        const startScreen = document.getElementById('start-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const endScreen = document.getElementById('end-screen');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const finalScore = document.getElementById('final-score');
+
+        // --- FUNÇÕES DO JOGO ---
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startGame() {
+            currentQuestionIndex = 0;
+            score = 0;
+            shuffledQuestions = shuffleArray([...questions]);
+            
+            startScreen.classList.add('hidden');
+            endScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            if (currentQuestionIndex < shuffledQuestions.length) {
+                const question = shuffledQuestions[currentQuestionIndex];
+                questionText.innerHTML = question.question;
+                optionsContainer.innerHTML = '';
+                feedbackMessage.innerHTML = '';
+
+                const shuffledOptions = shuffleArray([...question.options]);
+                
+                shuffledOptions.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.classList.add('w-full', 'bg-slate-100', 'text-gray-800', 'font-semibold', 'py-4', 'px-4', 'rounded-lg', 'text-lg', 'hover:bg-slate-200', 'transition-all', 'duration-200');
+                    button.onclick = () => selectAnswer(button, option, question.answer);
+                    optionsContainer.appendChild(button);
+                });
+
+                questionCounter.textContent = `Questão ${currentQuestionIndex + 1}/${shuffledQuestions.length}`;
+                scoreCounter.textContent = `Pontos: ${score}`;
+            } else {
+                showEndScreen();
+            }
+        }
+
+        function selectAnswer(button, selectedOption, correctAnswer) {
+            const buttons = optionsContainer.querySelectorAll('button');
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedOption === correctAnswer) {
+                score++;
+                feedbackMessage.textContent = "Correto!";
+                feedbackMessage.style.color = '#22c55e'; // green-500
+                button.classList.remove('bg-slate-100', 'hover:bg-slate-200');
+                button.classList.add('bg-green-500', 'text-white', 'correct-answer');
+            } else {
+                feedbackMessage.textContent = "Incorreto!";
+                feedbackMessage.style.color = '#ef4444'; // red-500
+                button.classList.remove('bg-slate-100', 'hover:bg-slate-200');
+                button.classList.add('bg-red-500', 'text-white', 'incorrect-answer');
+                
+                buttons.forEach(btn => {
+                    if (btn.textContent === correctAnswer) {
+                        btn.classList.remove('bg-slate-100', 'hover:bg-slate-200');
+                        btn.classList.add('bg-green-500', 'text-white');
+                    }
+                });
+            }
+            
+            currentQuestionIndex++;
+            setTimeout(displayQuestion, 2000);
+        }
+
+        function showEndScreen() {
+            gameScreen.classList.add('hidden');
+            endScreen.classList.remove('hidden');
+            finalScore.textContent = `Você acertou ${score} de ${shuffledQuestions.length} questões.`;
+        }
+    </script>
+</body>
+</html>
+

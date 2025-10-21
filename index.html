@@ -3,42 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desafio das Conjunções</title>
+    <title>Quiz Educativo - Página Inicial</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete a Frase: Conjunções</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2338b2ac' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'%3E%3C/path%3E%3Cpath d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'%3E%3C/path%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #38b2ac 0%, #3182ce 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
-        /* Animação de feedback */
-        .correct-answer {
-            animation: pulse-green 0.8s;
+        .quiz-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .incorrect-answer {
-            animation: pulse-red 0.8s;
-        }
-        @keyframes pulse-green {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
-            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
-        }
-        @keyframes pulse-red {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7); }
-            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(244, 67, 54, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
-        }
-        #question-text p {
-            margin-bottom: 0.5rem;
+        .quiz-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4">
+<body class="min-h-screen flex flex-col items-center">
 
     <!-- Navbar -->
-    <nav class="bg-white shadow-md w-full absolute top-0">
+    <nav class="bg-white shadow-md w-full sticky top-0 z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex-shrink-0">
@@ -46,169 +40,67 @@
                 </div>
                 <div class="hidden md:block">
                     <ul class="ml-10 flex items-baseline space-x-4">
-                        <li><a href="index.html" class="text-gray-600 hover:bg-teal-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Quiz</a></li>
-                        <li><a href="qrcode.html" class="text-gray-600 hover:bg-teal-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">QrCode</a></li>
+                        <li><a href="index.html" class="bg-teal-500 text-white px-3 py-2 rounded-md text-sm font-medium">Início</a></li>
+                        <li><a href="qrcode.html" class="text-gray-600 hover:bg-teal-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Sobre</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div id="game-container" class="w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-6 md:p-8 text-center transition-all duration-500 mt-20">
-        <!-- Tela Inicial -->
-        <div id="start-screen">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Desafio das Conjunções</h1>
-            <p class="text-gray-600 mb-6">Leia os textos e responda às perguntas. Vamos começar?</p>
-            <button onclick="startGame()" class="w-full bg-teal-500 text-white font-bold py-3 px-6 rounded-lg text-xl hover:bg-teal-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300">
-                Começar!
-            </button>
-        </div>
+    <!-- Conteúdo Principal -->
+    <main class="w-full max-w-6xl mx-auto p-6 md:p-8 text-center mt-10">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Escolha o seu Desafio!</h2>
+        <p class="text-gray-600 mb-12 text-lg">Teste seus conhecimentos com nossos quizes divertidos e educativos.</p>
 
-        <!-- Tela do Jogo -->
-        <div id="game-screen" class="hidden">
-            <div class="flex justify-between items-center mb-6">
-                <div id="question-counter" class="text-lg font-semibold text-gray-700">Questão 1/20</div>
-                <div id="score-counter" class="text-lg font-semibold text-gray-700">Pontos: 0</div>
-            </div>
-            <div class="bg-gray-100 rounded-lg p-6 mb-6 min-h-[150px] flex items-center justify-center text-left">
-                <div id="question-text" class="text-xl md:text-2xl font-semibold text-gray-800"></div>
-            </div>
-            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Opções serão inseridas aqui pelo JavaScript -->
-            </div>
-            <div id="feedback-message" class="mt-6 text-2xl font-bold h-8"></div>
-        </div>
-
-        <!-- Tela Final -->
-        <div id="end-screen" class="hidden">
-            <h1 class="text-4xl font-bold text-green-500 mb-4">Parabéns!</h1>
-            <p id="final-score" class="text-2xl text-gray-700 mb-6"></p>
-            <button onclick="startGame()" class="w-full bg-teal-500 text-white font-bold py-3 px-6 rounded-lg text-xl hover:bg-teal-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300">
-                Jogar Novamente
-            </button>
-        </div>
-    </div>
-
-    <script>
-        // --- CONFIGURAÇÃO DO JOGO ---
-        const questions = [
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'O sol brilhava <b>e</b> o céu estava azul. Fomos ao parque, <b>mas</b> começou a chover.' </p><p>Quais conjunções aparecem no texto?</p>", options: ["e, mas", "ou, pois", "e, porque", "mas, logo"], answer: "e, mas" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Ana estudou muito para a prova, <b>portanto</b>, tirou uma boa nota.' </p><p>A conjunção 'portanto' indica uma ideia de:</p>", options: ["Conclusão", "Oposição", "Adição", "Alternativa"], answer: "Conclusão" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Você quer ir ao cinema <b>ou</b> prefere ficar em casa?' </p><p>A conjunção 'ou' é usada para expressar:</p>", options: ["Alternativa", "Explicação", "Adição", "Contraste"], answer: "Alternativa" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Não saí de casa <b>porque</b> estava me sentindo mal.' </p><p>Qual o papel da conjunção 'porque' na frase?</p>", options: ["Dar uma explicação", "Adicionar uma ideia", "Mostrar uma oposição", "Indicar uma escolha"], answer: "Dar uma explicação" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Ele gosta de futebol, <b>porém</b> não sabe jogar bem.' </p><p>A palavra 'porém' pode ser substituída por qual conjunção, sem mudar o sentido?</p>", options: ["mas", "e", "pois", "logo"], answer: "mas" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'O menino não comeu o bolo <b>nem</b> tomou o suco.' </p><p>A conjunção 'nem' tem o sentido de:</p>", options: ["Adição negativa", "Escolha", "Conclusão", "Oposição"], answer: "Adição negativa" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Eu acordo cedo <b>e</b> faço minha lição antes de ir para a escola.' </p><p>A conjunção 'e' na frase serve para:</p>", options: ["Ligar duas ações", "Mostrar uma causa", "Dar uma alternativa", "Opor duas ideias"], answer: "Ligar duas ações" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'O filme era longo, <b>contudo</b>, eu gostei muito.' </p><p>'Contudo' é uma conjunção que indica:</p>", options: ["Oposição", "Adição", "Explicação", "Conclusão"], answer: "Oposição" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Estude, <b>pois</b> a prova será amanhã.' </p><p>A conjunção 'pois' poderia ser trocada por:</p>", options: ["porque", "mas", "ou", "portanto"], answer: "porque" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Choveu o dia todo, <b>logo</b>, as ruas ficaram alagadas.' </p><p>A conjunção 'logo' expressa uma ideia de:</p>", options: ["Conclusão", "Adição", "Oposição", "Tempo"], answer: "Conclusão" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Gosto de ler, <b>mas</b> hoje estou com dor de cabeça.' </p><p>A conjunção 'mas' indica uma:</p>", options: ["Contradição/Oposição", "Soma", "Causa", "Escolha"], answer: "Contradição/Oposição" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: '<b>Ou</b> você arruma o quarto, <b>ou</b> não vai passear.' </p><p>As conjunções 'Ou ... ou' indicam:</p>", options: ["Alternância", "Adição", "Oposição", "Explicação"], answer: "Alternância" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Ele não apenas leu o livro, <b>mas também</b> fez um resumo.' </p><p>A expressão 'não apenas... mas também' tem valor de:</p>", options: ["Adição", "Oposição", "Condição", "Tempo"], answer: "Adição" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: '<b>Se</b> você estudar, aprenderá a matéria.' </p><p>A conjunção 'Se' inicia uma ideia de:</p>", options: ["Condição", "Causa", "Tempo", "Finalidade"], answer: "Condição" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'O cachorro latiu <b>quando</b> o carteiro chegou.' </p><p>A palavra 'quando' é uma conjunção que indica:</p>", options: ["Tempo", "Lugar", "Modo", "Causa"], answer: "Tempo" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Ficamos em casa, <b>visto que</b> a tempestade era muito forte.' </p><p>A expressão 'visto que' tem o mesmo sentido de:</p>", options: ["porque", "embora", "portanto", "e"], answer: "porque" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: '<b>Embora</b> estivesse cansado, ele terminou todo o trabalho.' </p><p>A conjunção 'Embora' expressa uma ideia de:</p>", options: ["Concessão (oposição)", "Causa", "Finalidade", "Condição"], answer: "Concessão (oposição)" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Ele treinou todos os dias <b>para que</b> pudesse vencer a corrida.' </p><p>A expressão 'para que' indica:</p>", options: ["Finalidade", "Tempo", "Causa", "Consequência"], answer: "Finalidade" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'O dia estava quente, <b>então</b> fomos à praia.' </p><p>A conjunção 'então' pode ser substituída por:</p>", options: ["portanto", "mas", "porque", "ou"], answer: "portanto" },
-            { question: "<p class='text-base text-gray-600'>Leia o texto: 'Pedro é um bom aluno, <b>e</b> Maria também se esforça.' </p><p>Qual conjunção liga as duas frases?</p>", options: ["e", "mas", "ou", "pois"], answer: "e" }
-        ];
-
-        // --- VARIÁVEIS DO ESTADO DO JOGO ---
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let shuffledQuestions = [];
-
-        // --- ELEMENTOS DA UI ---
-        const startScreen = document.getElementById('start-screen');
-        const gameScreen = document.getElementById('game-screen');
-        const endScreen = document.getElementById('end-screen');
-        const questionText = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-        const feedbackMessage = document.getElementById('feedback-message');
-        const questionCounter = document.getElementById('question-counter');
-        const scoreCounter = document.getElementById('score-counter');
-        const finalScore = document.getElementById('final-score');
-
-        // --- FUNÇÕES DO JOGO ---
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        function startGame() {
-            currentQuestionIndex = 0;
-            score = 0;
-            shuffledQuestions = shuffleArray([...questions]);
+        <!-- Grid de Cards dos Quizes -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            startScreen.classList.add('hidden');
-            endScreen.classList.add('hidden');
-            gameScreen.classList.remove('hidden');
+            <!-- Card 1: Desafio das Conjunções -->
+            <div class="quiz-card bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center">
+                 <div class="bg-teal-100 p-4 rounded-full mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v11.494m-9-5.747h18" />
+                    </svg>
+                 </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Desafio das Conjunções</h3>
+                <p class="text-gray-600 mb-6 flex-grow">Identifique e classifique as conjunções em pequenos textos. Perfeito para treinar português!</p>
+                <a href="quiz1.html" class="w-full bg-teal-500 text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-teal-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300">
+                    Jogar Agora
+                </a>
+            </div>
 
-            displayQuestion();
-        }
+              <!-- Card 2: Desafio das Conjunções 2 -->
+            <div class="quiz-card bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center">
+                 <div class="bg-teal-100 p-4 rounded-full mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v11.494m-9-5.747h18" />
+                    </svg>
+                 </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Desafio das Conjunções</h3>
+                <p class="text-gray-600 mb-6 flex-grow">Complete as frases identificando a conjunção correta. Perfeito para praticar português!</p>
+                <a href="quiz2.html" class="w-full bg-teal-500 text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-teal-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300">
+                    Jogar Agora
+                </a>
+            </div>
 
-        function displayQuestion() {
-            if (currentQuestionIndex < shuffledQuestions.length) {
-                const question = shuffledQuestions[currentQuestionIndex];
-                questionText.innerHTML = question.question;
-                optionsContainer.innerHTML = '';
-                feedbackMessage.innerHTML = '';
+            <!-- Card 3: Quiz de Matemática (Exemplo) -->
+            <div class="quiz-card bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center">
+                <div class="bg-blue-100 p-4 rounded-full mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3.25M15 10V5.75M9 10v4.25m6-4.25a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM5 10a2 2 0 114 0 2 2 0 01-4 0zM5 19a2 2 0 114 0 2 2 0 01-4 0zM15 19a2 2 0 114 0 2 2 0 01-4 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Quiz de Matemática</h3>
+                <p class="text-gray-600 mb-6 flex-grow">Resolva problemas de frações, decimais e muito mais. Afie sua mente com números!</p>
+                 <button class="w-full bg-gray-300 text-gray-500 font-bold py-3 px-6 rounded-lg text-lg cursor-not-allowed">
+                    Em Breve
+                </button>
+            </div>
 
-                const shuffledOptions = shuffleArray([...question.options]);
-                
-                shuffledOptions.forEach(option => {
-                    const button = document.createElement('button');
-                    button.textContent = option;
-                    button.classList.add('w-full', 'bg-slate-100', 'text-gray-800', 'font-semibold', 'py-4', 'px-4', 'rounded-lg', 'text-lg', 'hover:bg-slate-200', 'transition-all', 'duration-200');
-                    button.onclick = () => selectAnswer(button, option, question.answer);
-                    optionsContainer.appendChild(button);
-                });
-
-                questionCounter.textContent = `Questão ${currentQuestionIndex + 1}/${shuffledQuestions.length}`;
-                scoreCounter.textContent = `Pontos: ${score}`;
-            } else {
-                showEndScreen();
-            }
-        }
-
-        function selectAnswer(button, selectedOption, correctAnswer) {
-            const buttons = optionsContainer.querySelectorAll('button');
-            buttons.forEach(btn => btn.disabled = true);
-
-            if (selectedOption === correctAnswer) {
-                score++;
-                feedbackMessage.textContent = "Correto!";
-                feedbackMessage.style.color = '#22c55e'; // green-500
-                button.classList.remove('bg-slate-100', 'hover:bg-slate-200');
-                button.classList.add('bg-green-500', 'text-white', 'correct-answer');
-            } else {
-                feedbackMessage.textContent = "Incorreto!";
-                feedbackMessage.style.color = '#ef4444'; // red-500
-                button.classList.remove('bg-slate-100', 'hover:bg-slate-200');
-                button.classList.add('bg-red-500', 'text-white', 'incorrect-answer');
-                
-                buttons.forEach(btn => {
-                    if (btn.textContent === correctAnswer) {
-                        btn.classList.remove('bg-slate-100', 'hover:bg-slate-200');
-                        btn.classList.add('bg-green-500', 'text-white');
-                    }
-                });
-            }
+            <!-- Adicione mais cards aqui -->
             
-            currentQuestionIndex++;
-            setTimeout(displayQuestion, 2000);
-        }
-
-        function showEndScreen() {
-            gameScreen.classList.add('hidden');
-            endScreen.classList.remove('hidden');
-            finalScore.textContent = `Você acertou ${score} de ${shuffledQuestions.length} questões.`;
-        }
-    </script>
+        </div>
+    </main>
 </body>
 </html>
-
